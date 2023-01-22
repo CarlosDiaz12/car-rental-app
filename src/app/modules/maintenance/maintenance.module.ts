@@ -9,8 +9,8 @@ import { FuelTypeComponent } from './pages/fuel-type/fuel-type.component';
 import { VehicleComponent } from './pages/vehicle/vehicle.component';
 import { ClientComponent } from './pages/client/client.component';
 import { EmployeeComponent } from './pages/employee/employee.component';
-import { InspectionComponent } from './pages/inspection/inspection.component';
-
+import { CreateEditBranchComponent } from './pages/branch/components/create-edit-branch/create-edit-branch.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,11 +21,8 @@ import { InspectionComponent } from './pages/inspection/inspection.component';
     VehicleComponent,
     ClientComponent,
     EmployeeComponent,
-    InspectionComponent
+    CreateEditBranchComponent,
   ],
-  imports: [
-    CommonModule,
-    MaintenanceRoutingModule
-  ]
+  imports: [CommonModule, MaintenanceRoutingModule, SharedModule],
 })
-export class MaintenanceModule { }
+export class MaintenanceModule {}
