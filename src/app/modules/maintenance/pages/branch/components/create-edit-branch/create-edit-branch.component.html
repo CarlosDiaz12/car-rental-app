@@ -1,1 +1,28 @@
-<p>create-edit-branch works!</p>
+<h1 mat-dialog-title>{{ action }} Marca</h1>
+<div mat-dialog-content>
+  <form *ngIf="dataForm" [formGroup]="dataForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Descripcion</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="true">Activo</mat-option>
+        <mat-option value="false">Inactivo</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onDismiss()">Cancelar</button>
+  <button
+    mat-raised-button
+    [disabled]="dataForm.invalid"
+    color="primary"
+    (click)="onConfirm()"
+  >
+    Guardar
+  </button>
+</div>

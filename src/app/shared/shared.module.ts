@@ -11,6 +11,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 // add material components here
 @NgModule({
   declarations: [ConfirmDialogComponent],
@@ -25,6 +28,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatPaginatorModule,
     MatExpansionModule,
     MatDialogModule,
+    MatFormFieldModule,
   ],
   exports: [
     HttpClientModule,
@@ -37,6 +41,9 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatPaginatorModule,
     MatExpansionModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
 })
 export class SharedModule {}

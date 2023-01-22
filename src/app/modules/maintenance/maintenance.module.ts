@@ -11,6 +11,7 @@ import { ClientComponent } from './pages/client/client.component';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { CreateEditBranchComponent } from './pages/branch/components/create-edit-branch/create-edit-branch.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,11 @@ import { SharedModule } from '../../shared/shared.module';
     EmployeeComponent,
     CreateEditBranchComponent,
   ],
-  imports: [CommonModule, MaintenanceRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    MaintenanceRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+  ],
 })
 export class MaintenanceModule {}

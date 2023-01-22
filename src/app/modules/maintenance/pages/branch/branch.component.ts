@@ -7,6 +7,7 @@ import {
   ConfirmDialogModel,
 } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { BranchService } from './services/branch.service';
+import { CreateEditBranchComponent } from './components/create-edit-branch/create-edit-branch.component';
 
 @Component({
   selector: 'app-branch',
@@ -24,18 +25,29 @@ export class BranchComponent implements OnInit {
     this.loadList();
   }
 
-  add(): void {}
+  add(): void {
+    // abrir dialog con formulario
+    const dialogRef = this.dialog.open(CreateEditBranchComponent, {
+      maxWidth: '500px',
+      maxHeight: '400px',
+      data: null,
+    });
+
+    dialogRef.afterClosed().subscribe((dialogResult) => {
+      if (dialogResult) {
+        this.loadList();
+        this.table.renderRows();
+      }
+    });
+  }
 
   confirmDialog(id: number): void {
     const message = `Estas seguro que deseas eliminar este registro?`;
-
     const dialogData = new ConfirmDialogModel('Confirmación', message);
-
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: '400px',
       data: dialogData,
     });
-
     dialogRef.afterClosed().subscribe((dialogResult) => {
       if (dialogResult) {
         this.delete(id);
