@@ -30,13 +30,36 @@ export class BranchComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateEditBranchComponent, {
       maxWidth: '500px',
       maxHeight: '400px',
-      data: null,
+      data: {
+        description: '',
+        status: 'true',
+      },
     });
 
     dialogRef.afterClosed().subscribe((dialogResult) => {
       if (dialogResult) {
         this.loadList();
         this.table.renderRows();
+      }
+    });
+  }
+
+  edit(id: number): void {
+    // abrir dialog con formulario
+    this.service.getById(id).subscribe((res) => {
+      if (res.success) {
+        const dialogRef = this.dialog.open(CreateEditBranchComponent, {
+          maxWidth: '500px',
+          maxHeight: '400px',
+          data: res.data,
+        });
+
+        dialogRef.afterClosed().subscribe((dialogResult) => {
+          if (dialogResult) {
+            this.loadList();
+            this.table.renderRows();
+          }
+        });
       }
     });
   }

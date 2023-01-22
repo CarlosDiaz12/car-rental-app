@@ -33,6 +33,6 @@ export abstract class BaseService<T> implements IBaseService<T> {
   }
 
   getById(id: number): Observable<any> {
-    return this.http.delete(environment.apiUrl + `/${this.endpoint}/${id}`);
+    return this.http.get(environment.apiUrl + `/${this.endpoint}/${id}`);
   }
 }

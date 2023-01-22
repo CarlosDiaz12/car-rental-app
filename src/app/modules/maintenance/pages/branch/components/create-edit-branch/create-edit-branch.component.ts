@@ -14,7 +14,7 @@ import { BranchService } from '../../services/branch.service';
   styleUrls: ['./create-edit-branch.component.scss'],
 })
 export class CreateEditBranchComponent implements OnInit {
-  action: string = '';
+  action: string = 'Agregar';
   dataForm!: FormGroup;
   constructor(
     private service: BranchService,
@@ -24,29 +24,43 @@ export class CreateEditBranchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // traer registro por id
-    if (this.data && this.data.id) {
-      // buscar registro en la db
+    if (this.data.id) {
+      this.action = 'Editar';
     }
     this.dataForm = this.fb.group({
-      description: new FormControl('', [Validators.required]),
-      status: new FormControl('true', [Validators.required]),
+      description: new FormControl(this.data.description, [
+        Validators.required,
+      ]),
+      status: new FormControl(this.data.status.toString(), [
+        Validators.required,
+      ]),
     });
   }
 
   onConfirm(): void {
     const { description, status } = this.dataForm.value;
     const data = {
+      id: 0,
       description,
       status: status === 'true',
     };
 
-    this.service.add(data).subscribe((res) => {
-      // Close the dialog, return true
-      if (res.success) {
-        this.dialogRef.close(true);
-      }
-    });
+    if (this.data.id) {
+      data.id = this.data.id;
+      this.service.edit(data).subscribe((res) => {
+        // Close the dialog, return true
+        if (res.success) {
+          this.dialogRef.close(true);
+        }
+      });
+    } else {
+      this.service.add(data).subscribe((res) => {
+        // Close the dialog, return true
+        if (res.success) {
+          this.dialogRef.close(true);
+        }
+      });
+    }
   }
 
   onDismiss(): void {
