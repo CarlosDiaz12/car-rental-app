@@ -12,6 +12,7 @@ import { EmployeeComponent } from './pages/employee/employee.component';
 import { CreateEditBranchComponent } from './pages/branch/components/create-edit-branch/create-edit-branch.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreateEditClientComponent } from './pages/client/components/create-edit-client/create-edit-client.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ClientComponent,
     EmployeeComponent,
     CreateEditBranchComponent,
+    CreateEditClientComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>{{ action }} Cliente</h1>
+<div mat-dialog-content>
+  <form *ngIf="dataForm" [formGroup]="dataForm">
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cedula</mat-label>
+        <input matInput formControlName="identificationCard" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>No. Tarjeta Credito</mat-label>
+        <input matInput formControlName="creditCardNumber" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Limite Credito</mat-label>
+        <input type="number" matInput formControlName="creditLimit" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo Persona</mat-label>
+        <input matInput formControlName="taxPayerType" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="true">Activo</mat-option>
+          <mat-option value="false">Inactivo</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onDismiss()">Cancelar</button>
+  <button
+    mat-raised-button
+    [disabled]="dataForm.invalid"
+    color="primary"
+    (click)="onConfirm()"
+  >
+    Guardar
+  </button>
+</div>
