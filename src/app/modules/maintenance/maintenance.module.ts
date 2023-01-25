@@ -15,6 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreateEditClientComponent } from './pages/client/components/create-edit-client/create-edit-client.component';
 import { CreateEditEmployeeComponent } from './pages/employee/components/create-edit-employee/create-edit-employee.component';
 import { CreateEditFuelTypeComponent } from './pages/fuel-type/components/create-edit-fuel-type/create-edit-fuel-type.component';
+import { CreateEditVehicleTypeComponent } from './pages/vehicle-type/components/create-edit-vehicle-type/create-edit-vehicle-type.component';
+import { CreateEditModelComponent } from './pages/model/components/create-edit-model/create-edit-model.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { CreateEditFuelTypeComponent } from './pages/fuel-type/components/create
     CreateEditClientComponent,
     CreateEditEmployeeComponent,
     CreateEditFuelTypeComponent,
+    CreateEditVehicleTypeComponent,
+    CreateEditModelComponent,
   ],
   imports: [
     CommonModule,
