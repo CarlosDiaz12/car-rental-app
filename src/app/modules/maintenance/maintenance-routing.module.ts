@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BranchComponent } from './pages/branch/branch.component';
 import { ClientComponent } from './pages/client/client.component';
+import { EmployeeComponent } from './pages/employee/employee.component';
 
 const routes: Routes = [
   { path: 'branch', component: BranchComponent },
   { path: 'client', component: ClientComponent },
+  { path: 'employee', component: EmployeeComponent },
 ];
 
 @NgModule({
