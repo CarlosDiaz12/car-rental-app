@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>{{ action }} Vehiculo</h1>
+<div mat-dialog-content>
+  <form *ngIf="dataForm" [formGroup]="dataForm">
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Descripcion</mat-label>
+        <input matInput formControlName="description" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>No. Chasis</mat-label>
+        <input type="number" matInput formControlName="chassisNumber" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>No. Motor</mat-label>
+        <input type="number" matInput formControlName="engineNumber" />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>No. Placa</mat-label>
+        <input type="number" matInput formControlName="plateNumber" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo de Vehiculo</mat-label>
+        <input type="number" matInput formControlName="vehicleTypeId" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Marca</mat-label>
+        <input type="number" matInput formControlName="brandId" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Modelo</mat-label>
+        <input type="number" matInput formControlName="modelId" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo Combustible</mat-label>
+        <input type="number" matInput formControlName="fuelTypeId" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="true">Activo</mat-option>
+          <mat-option value="false">Inactivo</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onDismiss()">Cancelar</button>
+  <button
+    mat-raised-button
+    [disabled]="dataForm.invalid"
+    color="primary"
+    (click)="onConfirm()"
+  >
+    Guardar
+  </button>
+</div>

@@ -1,0 +1,23 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  mat-dialog-content{
+    margin: 20px;
+  }
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.row > * {
+    margin: 0 12px;
+  }
+
+  .mat-mdc-dialog-container, .mat-mdc-dialog-container .mdc-dialog__container, .mat-mdc-dialog-container .mdc-dialog__surface {
+    width:fit-content !important;
+    height: 900px;
+}

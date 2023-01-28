@@ -17,6 +17,7 @@ import { CreateEditEmployeeComponent } from './pages/employee/components/create-
 import { CreateEditFuelTypeComponent } from './pages/fuel-type/components/create-edit-fuel-type/create-edit-fuel-type.component';
 import { CreateEditVehicleTypeComponent } from './pages/vehicle-type/components/create-edit-vehicle-type/create-edit-vehicle-type.component';
 import { CreateEditModelComponent } from './pages/model/components/create-edit-model/create-edit-model.component';
+import { CreateEditVehicleComponent } from './pages/vehicle/components/create-edit-vehicle/create-edit-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CreateEditModelComponent } from './pages/model/components/create-edit-m
     CreateEditFuelTypeComponent,
     CreateEditVehicleTypeComponent,
     CreateEditModelComponent,
+    CreateEditVehicleComponent,
   ],
   imports: [
     CommonModule,
