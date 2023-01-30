@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ action }} Cliente</h1>
+<h1 mat-dialog-title>{{ action }} Empleado</h1>
 <div mat-dialog-content>
   <form *ngIf="dataForm" [formGroup]="dataForm">
     <div class="row">
@@ -24,7 +24,12 @@
     <div class="row">
       <mat-form-field appearance="fill">
         <mat-label>Fecha Contratacion</mat-label>
-        <input type="date" matInput formControlName="hireDate" />
+        <input matInput formControlName="hireDate" [matDatepicker]="picker" />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
     <div class="row">

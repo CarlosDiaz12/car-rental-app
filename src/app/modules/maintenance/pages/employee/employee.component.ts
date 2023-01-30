@@ -63,8 +63,8 @@ export class EmployeeComponent implements OnInit {
     this.service.getById(id).subscribe((res) => {
       if (res.success) {
         const dialogRef = this.dialog.open(CreateEditEmployeeComponent, {
-          maxWidth: '500px',
-          maxHeight: '400px',
+          maxWidth: '1100px',
+          maxHeight: '800px',
           data: res.data,
         });
 
