@@ -14,6 +14,13 @@ const routes: Routes = [
         (m) => m.MaintenanceModule
       ),
   },
+  {
+    path: 'inspection',
+    loadChildren: () =>
+      import('./modules//inspection/inspection.module').then(
+        (m) => m.InspectionModule
+      ),
+  },
 ];
 
 @NgModule({

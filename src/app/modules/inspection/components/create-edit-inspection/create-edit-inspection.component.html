@@ -1,0 +1,97 @@
+<h1 mat-dialog-title>{{ action }} Inspeccion</h1>
+<div mat-dialog-content>
+  <form *ngIf="dataForm" [formGroup]="dataForm">
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Vehiculo</mat-label>
+        <mat-select formControlName="vehicleId">
+          <mat-option *ngFor="let item of ddlVehicleValues" [value]="item.id"
+            >{{ item.brand.description }}-{{
+              item.model.description
+            }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cliente</mat-label>
+        <mat-select formControlName="clientId">
+          <mat-option *ngFor="let item of ddlClientValues" [value]="item.id">{{
+            item.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Empleado</mat-label>
+        <mat-select formControlName="employeeId">
+          <mat-option
+            *ngFor="let item of ddlEmployeeValues"
+            [value]="item.id"
+            >{{ item.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cant. Combustible</mat-label>
+        <input matInput formControlName="fuelQuantity" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-checkbox formControlName="hasScratches">Ralladuras</mat-checkbox>
+      <mat-checkbox formControlName="hasSpareTire">Tiene Repuesta</mat-checkbox>
+      <mat-checkbox formControlName="hasManualJack">Tiene Gato</mat-checkbox>
+      <mat-checkbox formControlName="hasGlassBreakage"
+        >Rotura Cristal</mat-checkbox
+      >
+    </div>
+    <div class="spacer"></div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha Inspeccion</mat-label>
+        <input type="date" matInput formControlName="inspectionDate" readonly />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <span class="mat-h3 bold" style="color: black; font-weight: 450"
+        >Estado Gomas</span
+      >
+    </div>
+    <div class="row">
+      <mat-checkbox formControlName="firstTireCondition"
+        >Izquierda Frontal</mat-checkbox
+      >
+      <mat-checkbox formControlName="secondTireCondition"
+        >Derecha Frontal</mat-checkbox
+      >
+    </div>
+    <div class="row">
+      <mat-checkbox formControlName="thirdTireCondition"
+        >Izquierda Trasera</mat-checkbox
+      >
+      <mat-checkbox formControlName="fourthTireCondition"
+        >Derecha Trasera</mat-checkbox
+      >
+    </div>
+    <div class="spacer"></div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="true">Activo</mat-option>
+          <mat-option value="false">Inactivo</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onDismiss()">Cancelar</button>
+  <button
+    mat-raised-button
+    [disabled]="dataForm.invalid"
+    color="primary"
+    (click)="onConfirm()"
+  >
+    Guardar
+  </button>
+</div>
