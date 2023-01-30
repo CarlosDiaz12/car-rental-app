@@ -23,21 +23,46 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Tipo de Vehiculo</mat-label>
-        <input type="number" matInput formControlName="vehicleTypeId" />
+        <mat-select formControlName="vehicleTypeId">
+          <mat-option
+            *ngFor="let item of ddlVehicleTypeValues"
+            [value]="item.id"
+            >{{ item.description }}</mat-option
+          >
+        </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Marca</mat-label>
-        <input type="number" matInput formControlName="brandId" />
+        <mat-select
+          formControlName="brandId"
+          (selectionChange)="onChangeBrand($event)"
+        >
+          <mat-option *ngFor="let item of ddlBrandValues" [value]="item.id">{{
+            item.description
+          }}</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field appearance="fill">
         <mat-label>Modelo</mat-label>
-        <input type="number" matInput formControlName="modelId" />
+        <mat-select formControlName="modelId">
+          <mat-option
+            *ngFor="let item of ddlFilteredModelValues"
+            [value]="item.id"
+            >{{ item.description }}</mat-option
+          >
+        </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Tipo Combustible</mat-label>
-        <input type="number" matInput formControlName="fuelTypeId" />
+        <mat-select formControlName="fuelTypeId">
+          <mat-option
+            *ngFor="let item of ddlFuelTypeValues"
+            [value]="item.id"
+            >{{ item.description }}</mat-option
+          >
+        </mat-select>
       </mat-form-field>
     </div>
     <div class="row">

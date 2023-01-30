@@ -6,8 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { formatDate } from '@angular/common';
 import { VehicleService } from '../../services/vehicle.service';
+import { BranchService } from '../../../branch/services/branch.service';
+import { VehicleTypeService } from '../../../vehicle-type/services/vehicle-type.service';
+import { ModelService } from '../../../model/services/model.service';
+import { FuelTypeService } from '../../../fuel-type/services/fuel-type.service';
+import { MatSelectChange } from '@angular/material/select';
 @Component({
   selector: 'app-create-edit-vehicle',
   templateUrl: './create-edit-vehicle.component.html',
@@ -16,14 +20,24 @@ import { VehicleService } from '../../services/vehicle.service';
 export class CreateEditVehicleComponent implements OnInit {
   action: string = 'Agregar';
   dataForm!: FormGroup;
+  ddlBrandValues: any[] = [];
+  ddlVehicleTypeValues: any[] = [];
+  ddlModelValues: any[] = [];
+  ddlFilteredModelValues: any[] = [];
+  ddlFuelTypeValues: any[] = [];
   constructor(
     private service: VehicleService,
+    private brandService: BranchService,
+    private vehicleTypeService: VehicleTypeService,
+    private modelService: ModelService,
+    private fuelTypeService: FuelTypeService,
     public dialogRef: MatDialogRef<CreateEditVehicleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.fillDropdown();
     if (this.data.id) {
       this.action = 'Editar';
     }
@@ -97,5 +111,36 @@ export class CreateEditVehicleComponent implements OnInit {
   onDismiss(): void {
     // Close the dialog, return false
     this.dialogRef.close(false);
+  }
+
+  fillDropdown(): void {
+    this.brandService.list().subscribe((value) => {
+      if (value.success) {
+        this.ddlBrandValues = value.data;
+      }
+    });
+    this.vehicleTypeService.list().subscribe((value) => {
+      if (value.success) {
+        this.ddlVehicleTypeValues = value.data;
+      }
+    });
+    this.modelService.list().subscribe((value) => {
+      if (value.success) {
+        this.ddlModelValues = value.data;
+      }
+    });
+    this.fuelTypeService.list().subscribe((value) => {
+      if (value.success) {
+        this.ddlFuelTypeValues = value.data;
+      }
+    });
+  }
+
+  onChangeBrand(ev: MatSelectChange): void {
+    // filter model ddl
+    const brandId = +ev.value;
+    this.ddlFilteredModelValues = this.ddlModelValues.filter(
+      (m) => m.brandId == brandId
+    );
   }
 }
