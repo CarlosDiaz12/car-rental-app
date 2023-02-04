@@ -9,7 +9,7 @@ import { IBaseService } from '../interfaces/ibase.service';
 })
 export abstract class BaseService<T> implements IBaseService<T> {
   endpoint: string = '';
-  constructor(private http: HttpClient, endpoint: string) {
+  constructor(public http: HttpClient, endpoint: string) {
     this.endpoint = endpoint;
   }
 

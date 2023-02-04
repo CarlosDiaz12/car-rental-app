@@ -21,6 +21,11 @@ const routes: Routes = [
         (m) => m.InspectionModule
       ),
   },
+  {
+    path: 'rent',
+    loadChildren: () =>
+      import('./modules//rent/rent.module').then((m) => m.RentModule),
+  },
 ];
 
 @NgModule({

@@ -17,6 +17,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {
+  MatMomentDateModule,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
 // add material components here
 @NgModule({
   declarations: [ConfirmDialogComponent],
@@ -32,6 +36,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatExpansionModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+  ],
+  providers: [
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
   ],
   exports: [
     HttpClientModule,
@@ -50,6 +59,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMomentDateModule,
   ],
 })
 export class SharedModule {}
