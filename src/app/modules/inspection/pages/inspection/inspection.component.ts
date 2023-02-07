@@ -9,6 +9,7 @@ import {
 import { CreateEditInspectionComponent } from '../../components/create-edit-inspection/create-edit-inspection.component';
 import { InspectionService } from '../../services/inspection.service';
 import { DataService } from '../../../../shared/services/data.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-inspection',
@@ -16,6 +17,13 @@ import { DataService } from '../../../../shared/services/data.service';
   styleUrls: ['./inspection.component.scss'],
 })
 export class InspectionComponent implements OnInit {
+  range = new FormGroup({
+    start: new FormControl(''),
+    end: new FormControl(''),
+  });
+
+  textFilter: string = '';
+
   displayedColumns: string[] = [
     'vehicle',
     'client',
@@ -26,6 +34,7 @@ export class InspectionComponent implements OnInit {
     'Acciones',
   ];
   dataSource!: MatTableDataSource<any>;
+  filteredValues: any[] = [];
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -36,6 +45,46 @@ export class InspectionComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.loadList();
+  }
+
+  clearFilter() {
+    this.range.reset();
+    this.textFilter = '';
+    this.dataSource = new MatTableDataSource<any>(this.filteredValues);
+    this.dataSource.paginator = this.paginator;
+    this.table.renderRows();
+  }
+  applyFilter() {
+    const fromDate = this.range.get('start')?.value;
+    const toDate = this.range.get('end')?.value;
+    console.log(this.range.value);
+    let values = this.filteredValues;
+
+    if (fromDate && toDate) {
+      values = values.filter(
+        (x) =>
+          Date.parse(x.inspectionDate) >= Date.parse(fromDate) &&
+          Date.parse(x.inspectionDate) <= Date.parse(toDate)
+      );
+    } else if (fromDate) {
+      values = values.filter(
+        (x) => Date.parse(x.inspectionDate) >= Date.parse(fromDate)
+      );
+    }
+
+    if (this.textFilter) {
+      values = values.filter(
+        (x) =>
+          `${x.vehicle.brand.description} ${x.vehicle.model.description}`
+            .toLowerCase()
+            .includes(this.textFilter.toLowerCase()) ||
+          x.client.name.toLowerCase().includes(this.textFilter.toLowerCase()) ||
+          x.employee.name.toLowerCase().includes(this.textFilter.toLowerCase)
+      );
+    }
+    this.dataSource = new MatTableDataSource<any>(values);
+    this.dataSource.paginator = this.paginator;
+    this.table.renderRows();
   }
 
   export(): any {
@@ -127,7 +176,8 @@ export class InspectionComponent implements OnInit {
 
   loadList() {
     this.service.list().subscribe((value) => {
-      this.dataSource = new MatTableDataSource<any>(value.data);
+      this.filteredValues = value.data;
+      this.dataSource = new MatTableDataSource<any>(this.filteredValues);
       this.dataSource.paginator = this.paginator;
     });
   }

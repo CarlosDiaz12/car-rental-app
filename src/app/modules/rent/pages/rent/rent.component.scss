@@ -10,3 +10,13 @@ table {
 .header{
     margin-top: 2%;
 }
+.filterDiv > * {
+    margin: 0 12px;
+  }
+.filterDiv {
+    margin-top: 18px;
+    padding: 4px;
+}
+.example-spacer {
+    flex: 1 1 auto;
+  }

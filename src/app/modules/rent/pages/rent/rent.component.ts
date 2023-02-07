@@ -10,12 +10,24 @@ import {
 import { CreateEditRentComponent } from '../../components/create-edit-rent/create-edit-rent.component';
 import { DataService } from '../../../../shared/services/data.service';
 import { SharedService } from '../../../../shared/shared.service';
+import { FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-rent',
   templateUrl: './rent.component.html',
   styleUrls: ['./rent.component.scss'],
 })
 export class RentComponent implements OnInit {
+  range = new FormGroup({
+    start: new FormControl(''),
+    end: new FormControl(''),
+  });
+  range2 = new FormGroup({
+    start: new FormControl(''),
+    end: new FormControl(''),
+  });
+  filteredValues: any[] = [];
+  textFilter: string = '';
+
   displayedColumns: string[] = [
     'employee',
     'vehicle',
@@ -40,8 +52,6 @@ export class RentComponent implements OnInit {
   }
 
   add(): void {
-    const currentDate = new Date();
-    // abrir dialog con formulario
     const dialogRef = this.dialog.open(CreateEditRentComponent, {
       maxWidth: '1100px',
       maxHeight: '800px',
@@ -102,6 +112,60 @@ export class RentComponent implements OnInit {
     });
   }
 
+  clearFilter() {
+    this.range.reset();
+    this.range2.reset();
+    this.textFilter = '';
+    this.dataSource = new MatTableDataSource<any>(this.filteredValues);
+    this.dataSource.paginator = this.paginator;
+    this.table.renderRows();
+  }
+  applyFilter() {
+    let values = this.filteredValues;
+    const fromDate = this.range.get('start')?.value;
+    const toDate = this.range.get('end')?.value;
+
+    if (fromDate && toDate) {
+      values = values.filter(
+        (x) =>
+          Date.parse(x.rentDate) >= Date.parse(fromDate) &&
+          Date.parse(x.rentDate) <= Date.parse(toDate)
+      );
+    } else if (fromDate) {
+      values = values.filter(
+        (x) => Date.parse(x.rentDate) >= Date.parse(fromDate)
+      );
+    }
+
+    const fromDate2 = this.range2.get('start')?.value;
+    const toDate2 = this.range2.get('end')?.value;
+
+    if (fromDate2 && toDate2) {
+      values = values.filter(
+        (x) =>
+          Date.parse(x.returnDate) >= Date.parse(fromDate2) &&
+          Date.parse(x.returnDate) <= Date.parse(toDate2)
+      );
+    } else if (fromDate2) {
+      values = values.filter(
+        (x) => Date.parse(x.returDate) >= Date.parse(fromDate2)
+      );
+    }
+
+    if (this.textFilter) {
+      values = values.filter(
+        (x) =>
+          `${x.vehicle.brand.description} ${x.vehicle.model.description}`
+            .toLowerCase()
+            .includes(this.textFilter.toLowerCase()) ||
+          x.client.name.toLowerCase().includes(this.textFilter.toLowerCase()) ||
+          x.employee.name.toLowerCase().includes(this.textFilter.toLowerCase)
+      );
+    }
+    this.dataSource = new MatTableDataSource<any>(values);
+    this.dataSource.paginator = this.paginator;
+    this.table.renderRows();
+  }
   export(): void {
     const headerList = [
       'Empleado',
@@ -129,8 +193,8 @@ export class RentComponent implements OnInit {
   }
   loadList() {
     this.service.list().subscribe((value) => {
-      this.dataSource = new MatTableDataSource<any>(value.data);
-      this.dataSource.paginator = this.paginator;
+      this.filteredValues = value.data;
+      this.dataSource = new MatTableDataSource<any>(this.filteredValues);
     });
   }
 

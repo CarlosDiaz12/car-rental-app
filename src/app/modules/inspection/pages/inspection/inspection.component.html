@@ -14,6 +14,50 @@
   >
     Exportar
   </button>
+  <div class="mat-elevation-z8 filterDiv">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input
+        [(ngModel)]="textFilter"
+        matInput
+        (keyup)="applyFilter()"
+        placeholder="Search columns"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Introduce rango de fecha</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date" />
+        <input matEndDate formControlName="end" placeholder="End date" />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <span class="example-spacer"></span>
+    <button
+      style="margin-left: 5px"
+      mat-raised-button
+      color="accent"
+      focusable="false"
+      (click)="applyFilter()"
+    >
+      Filtrar
+    </button>
+    <button
+      style="margin-left: 5px"
+      mat-raised-button
+      color="warn"
+      focusable="false"
+      (click)="clearFilter()"
+    >
+      Limpiar
+    </button>
+  </div>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" #table>
       <ng-container matColumnDef="vehicle">
