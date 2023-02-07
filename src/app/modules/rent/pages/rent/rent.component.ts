@@ -8,6 +8,8 @@ import {
   ConfirmDialogModel,
 } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { CreateEditRentComponent } from '../../components/create-edit-rent/create-edit-rent.component';
+import { DataService } from '../../../../shared/services/data.service';
+import { SharedService } from '../../../../shared/shared.service';
 @Component({
   selector: 'app-rent',
   templateUrl: './rent.component.html',
@@ -28,7 +30,11 @@ export class RentComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private service: RentService, public dialog: MatDialog) {}
+  constructor(
+    private service: RentService,
+    private dataService: DataService,
+    public dialog: MatDialog
+  ) {}
   ngOnInit(): void {
     this.loadList();
   }
@@ -96,6 +102,31 @@ export class RentComponent implements OnInit {
     });
   }
 
+  export(): void {
+    const headerList = [
+      'Empleado',
+      'Vehiculo',
+      'Cliente',
+      'Fecha Renta',
+      'Fecha Hasta',
+      'Precio x dia',
+      'Cant. dias',
+    ];
+
+    const dataExport = this.dataSource.data.map((r) => {
+      return {
+        Empleado: r.employee.name,
+        Vehiculo: `${r.vehicle.brand.description}-${r.vehicle.model.description}`,
+        Cliente: r.client.name,
+        'Fecha Renta': r.rentDate,
+        'Fecha Hasta': r.returnDate,
+        'Precio x dia': r.ratePerDay,
+        'Cant. dias': r.daysQuantity,
+      };
+    });
+    const fileName = 'rentas-csv_' + new Date().toLocaleDateString();
+    this.dataService.downloadCsvFile(dataExport, fileName, headerList);
+  }
   loadList() {
     this.service.list().subscribe((value) => {
       this.dataSource = new MatTableDataSource<any>(value.data);

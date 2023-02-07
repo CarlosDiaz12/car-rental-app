@@ -8,6 +8,7 @@ import {
 } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { CreateEditInspectionComponent } from '../../components/create-edit-inspection/create-edit-inspection.component';
 import { InspectionService } from '../../services/inspection.service';
+import { DataService } from '../../../../shared/services/data.service';
 
 @Component({
   selector: 'app-inspection',
@@ -28,9 +29,35 @@ export class InspectionComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private service: InspectionService, public dialog: MatDialog) {}
+  constructor(
+    private service: InspectionService,
+    private dataService: DataService,
+    public dialog: MatDialog
+  ) {}
   ngOnInit(): void {
     this.loadList();
+  }
+
+  export(): any {
+    const headerList = [
+      'Empleado',
+      'Vehiculo',
+      'Cliente',
+      'Fecha Inspeccion',
+      'Cant. Combustible',
+    ];
+
+    const dataExport = this.dataSource.data.map((r) => {
+      return {
+        Empleado: r.employee.name,
+        Vehiculo: `${r.vehicle.brand.description}-${r.vehicle.model.description}`,
+        Cliente: r.client.name,
+        'Fecha Inspeccion': r.inspectionDate,
+        'Cant. Combustible': r.fuelQuantity,
+      };
+    });
+    const fileName = 'inspecciones-csv_' + new Date().toLocaleDateString();
+    this.dataService.downloadCsvFile(dataExport, fileName, headerList);
   }
 
   add(): void {

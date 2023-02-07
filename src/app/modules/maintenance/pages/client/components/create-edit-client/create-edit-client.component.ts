@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClientService } from '../../services/client.service';
+import { SharedService } from '../../../../../../shared/shared.service';
 
 @Component({
   selector: 'app-create-edit-client',
@@ -18,6 +19,7 @@ export class CreateEditClientComponent {
   dataForm!: FormGroup;
   constructor(
     private service: ClientService,
+    private sharedService: SharedService,
     public dialogRef: MatDialogRef<CreateEditClientComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
@@ -46,6 +48,7 @@ export class CreateEditClientComponent {
       ]),
     });
   }
+
   onConfirm(): void {
     const {
       name,
@@ -64,6 +67,11 @@ export class CreateEditClientComponent {
       taxPayerType,
       status: status === 'true',
     };
+
+    if (!this.sharedService.isValidIdNumber(identificationCard)) {
+      this.sharedService.showError('La cedula ingresada es invalida');
+      return;
+    }
 
     if (this.data.id) {
       data.id = this.data.id;

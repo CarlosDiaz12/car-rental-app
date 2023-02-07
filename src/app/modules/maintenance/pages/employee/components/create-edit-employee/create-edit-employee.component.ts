@@ -8,6 +8,7 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeeService } from '../../services/employee.service';
 import { formatDate } from '@angular/common';
+import { SharedService } from '../../../../../../shared/shared.service';
 
 @Component({
   selector: 'app-create-edit-employee',
@@ -19,6 +20,7 @@ export class CreateEditEmployeeComponent implements OnInit {
   dataForm!: FormGroup;
   constructor(
     private service: EmployeeService,
+    private sharedService: SharedService,
     public dialogRef: MatDialogRef<CreateEditEmployeeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
@@ -56,6 +58,11 @@ export class CreateEditEmployeeComponent implements OnInit {
       hireDate,
       status: status === 'true',
     };
+
+    if (!this.sharedService.isValidIdNumber(idCard)) {
+      this.sharedService.showError('La cedula ingresada es invalida');
+      return;
+    }
 
     if (this.data.id) {
       data.id = this.data.id;

@@ -5,6 +5,15 @@
   <button mat-raised-button color="primary" focusable="false" (click)="add()">
     Agregar
   </button>
+  <button
+    style="margin-left: 5px"
+    mat-raised-button
+    color="accent"
+    focusable="false"
+    (click)="export()"
+  >
+    Exportar
+  </button>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" #table>
       <ng-container matColumnDef="employee">
