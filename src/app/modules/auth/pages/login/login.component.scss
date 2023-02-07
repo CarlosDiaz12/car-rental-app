@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  mat-card-content{
+    margin: 20px;
+  }
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.row > * {
+    margin: 0 12px;
+  }
+
+#loginButton{
+    flex: auto;
+}
+
+img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-self: center;
+}
+
+.mat-mdc-card-header {
+  display: flex;
+  align-self: center;
+}

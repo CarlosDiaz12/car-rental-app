@@ -17,6 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
   MatMomentDateModule,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -60,6 +62,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatMomentDateModule,
+    MatCardModule,
+    MatProgressBarModule,
   ],
 })
 export class SharedModule {}

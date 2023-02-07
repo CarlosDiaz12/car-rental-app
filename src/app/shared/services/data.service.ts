@@ -48,4 +48,16 @@ export class DataService {
     }
     return str;
   }
+
+  setLocalStoreageItem(key: string, data: any) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  getLocalStorageItem(key: string) {
+    return localStorage.getItem(key);
+  }
+
+  removeLocalStorageItem(key: string) {
+    localStorage.removeItem(key);
+  }
 }
