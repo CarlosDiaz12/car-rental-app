@@ -23,13 +23,13 @@ const routes: Routes = [
       import('./modules/inspection/inspection.module').then(
         (m) => m.InspectionModule
       ),
-    //canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
   },
   {
     path: 'rent',
     loadChildren: () =>
       import('./modules/rent/rent.module').then((m) => m.RentModule),
-    //canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
   },
 
   {
