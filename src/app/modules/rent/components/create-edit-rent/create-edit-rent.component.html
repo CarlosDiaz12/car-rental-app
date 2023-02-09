@@ -74,6 +74,7 @@
         <mat-label>Tarifa por Dia</mat-label>
         <input
           type="number"
+          min="0"
           matInput
           formControlName="ratePerDay"
           [readonly]="isEditing"

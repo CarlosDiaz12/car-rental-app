@@ -118,6 +118,15 @@
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let item">
           <button
+            *ngIf="!item.returned"
+            (click)="complete(item.id)"
+            mat-raised-button
+            focusable="false"
+            style="margin-right: 4px"
+          >
+            Finalizar
+          </button>
+          <button
             (click)="edit(item.id)"
             mat-raised-button
             focusable="false"

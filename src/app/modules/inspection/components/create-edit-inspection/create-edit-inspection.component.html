@@ -32,7 +32,13 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Cant. Combustible</mat-label>
-        <input matInput formControlName="fuelQuantity" />
+        <mat-select formControlName="fuelQuantity">
+          <mat-option
+            *ngFor="let item of fuelQuantityList"
+            [value]="item.value"
+            >{{ item.text }}</mat-option
+          >
+        </mat-select>
       </mat-form-field>
     </div>
     <div class="row">

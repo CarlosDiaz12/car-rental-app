@@ -120,6 +120,12 @@ export class RentComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.table.renderRows();
   }
+  complete(id: number) {
+    this.service.completeRent(id).subscribe((res) => {
+      this.loadList();
+      this.table.renderRows();
+    });
+  }
   applyFilter() {
     let values = this.filteredValues;
     const fromDate = this.range.get('start')?.value;

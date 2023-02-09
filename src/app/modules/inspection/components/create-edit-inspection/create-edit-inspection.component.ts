@@ -11,6 +11,7 @@ import { InspectionService } from '../../services/inspection.service';
 import { VehicleService } from 'src/app/modules/maintenance/pages/vehicle/services/vehicle.service';
 import { ClientService } from 'src/app/modules/maintenance/pages/client/services/client.service';
 import { EmployeeService } from 'src/app/modules/maintenance/pages/employee/services/employee.service';
+import { FuelQuiantity } from 'src/app/core/enums/fuel-quantity.enum';
 
 @Component({
   selector: 'app-create-edit-inspection',
@@ -23,6 +24,8 @@ export class CreateEditInspectionComponent implements OnInit {
   ddlVehicleValues: any[] = [];
   ddlClientValues: any[] = [];
   ddlEmployeeValues: any[] = [];
+  fuelQuantityList: any[] = [];
+
   constructor(
     private service: InspectionService,
     private vehicleService: VehicleService,
@@ -38,6 +41,12 @@ export class CreateEditInspectionComponent implements OnInit {
     if (this.data.id) {
       this.action = 'Editar';
     }
+    this.fuelQuantityList = Object.keys(FuelQuiantity)
+      .filter((x) => !isNaN(+x))
+      .map((x) => ({
+        value: x,
+        text: FuelQuiantity[+x].toString(),
+      }));
     this.dataForm = this.fb.group({
       vehicleId: new FormControl(this.data.vehicleId, [Validators.required]),
       clientId: new FormControl(this.data.clientId, [Validators.required]),
@@ -100,7 +109,7 @@ export class CreateEditInspectionComponent implements OnInit {
       vehicleId,
       clientId,
       employeeId,
-      fuelQuantity,
+      fuelQuantity: +fuelQuantity,
       hasSpareTire,
       hasScratches,
       hasManualJack,
